@@ -3,13 +3,19 @@ from django.utils.timezone import now
 from .enums import VPNType, GiftcardType, Country
 
 
-class Product(models.Model):
+class TimestampModel(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Product(TimestampModel):
     name = models.CharField(max_length=255, null=False, blank=False, unique=True, db_index=True)
     price = models.IntegerField(default=0, null=False, blank=True)
     description = models.TextField(null=True, blank=True)
     active = models.BooleanField(default=True, null=False, blank=False, db_index=True)
-    created = models.DateTimeField(auto_now_add=True) # created = models.DateTimeField(default=now, editable=False)
-    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = False
