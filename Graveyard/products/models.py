@@ -20,6 +20,8 @@ class Product(TimestampModel):
     class Meta:
         abstract = False
         db_table = "product"
+        verbose_name = "Product"
+        verbose_name_plural = "Products"
 
     def __str__(self):
         return self.name
@@ -33,6 +35,9 @@ class VPN(Product):
     
     class Meta:
         db_table = "vpn"
+        verbose_name = "VPN"
+        verbose_name_plural = "VPNs"
+
 
 
 class Giftcard(Product):
@@ -41,3 +46,5 @@ class Giftcard(Product):
     
     class Meta:
         db_table = "giftcard"
+        verbose_name = "Giftcard"
+        verbose_name_plural = "Giftcards"
