@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 style="color: brown;">Lezzat {{ qty }}</h2>
+
+<ul style="background-color: blueviolet;">
+{% for product in products %}
+  <li>{{ product }}</li>
+{% endfor %}
+</ul>
+{% endblock %}
