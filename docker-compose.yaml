@@ -1,0 +1,46 @@
+services:
+    app:
+        container_name: graveyard
+        image: peymanhr/graveyard:1.0
+        build:
+            context: Graveyard
+            network: host
+        environment:
+            DEBUG: ${DEBUG}
+            TZ: ${TZ}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS}
+            SECRET_KEY: ${SECRET_KEY}
+        volumes:
+          - ./Graveyard:/app:consistent
+        networks:
+          - app
+        ports:
+          - 8000:8000/tcp
+        restart: always
+        depends_on:
+          - db
+        # command: gunicorn --workers=4 Graveyard.wsgi --bind 0.0.0.0:8000
+        # command: python3 manage.py runserver 0.0.0.0:8000
+    db:
+        container_name: db
+        image: mysql:9
+        environment:
+            TZ: ${TZ}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        volumes:
+          - ./data:/var/lib/mysql
+        restart: always
+        networks:
+          - app
+
+networks:
+  app:
+    name: app
+    driver: bridge
+    external: false

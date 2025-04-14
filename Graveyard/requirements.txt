@@ -4,3 +4,4 @@ mysqlclient==2.2.7
 pycountry==24.6.1
 sqlparse==0.5.3
 typing_extensions==4.12.2
+gunicorn==20.1.0

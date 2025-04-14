@@ -1,3 +1,9 @@
+# Docker
+.env
+
+# MySQL data
+data
+
 # Django
 *.log
 *.pot
