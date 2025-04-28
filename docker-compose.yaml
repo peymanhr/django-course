@@ -1,4 +1,19 @@
 services:
+
+    nginx:
+        container_name: nginx
+        image: nginx:1.27.5-alpine-slim
+        networks:
+          - app
+          - nginx
+        ports:
+          - 80:80/tcp
+          - 443:443/tcp
+        volumes:
+          - ./nginx/etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+          - ./nginx/etc/nginx/templates:/etc/nginx/templates
+        restart: always
+        
     app:
         container_name: graveyard
         image: peymanhr/graveyard:1.0
@@ -17,13 +32,23 @@ services:
           - ./Graveyard:/app:consistent
         networks:
           - app
-        ports:
-          - 8000:8000/tcp
         restart: always
         depends_on:
           - db
+          - nginx
         # command: gunicorn --workers=4 Graveyard.wsgi --bind 0.0.0.0:8000
         # command: python3 manage.py runserver 0.0.0.0:8000
+
+    httpd:
+        container_name: httpd
+        image: httpd
+        networks:
+          - app
+        restart: always
+        depends_on:
+          - nginx
+
+
     db:
         container_name: db
         image: mysql:9
@@ -42,5 +67,10 @@ services:
 networks:
   app:
     name: app
+    driver: bridge
+    external: false
+
+  nginx:
+    name: nginx
     driver: bridge
     external: false
