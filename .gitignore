@@ -16,3 +16,6 @@ media
 .DS_Store
 
 resources
+
+# certbot
+certbot

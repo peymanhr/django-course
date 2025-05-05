@@ -1,0 +1,16 @@
+services:
+  certbot:
+    image: certbot/certbot:v3.0.1
+    container_name: certbot
+    networks:
+      - nginx
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: "certonly --keep-until-expiring --webroot --webroot-path=/var/www/certbot --email phooshmand@gmail.com  --agree-tos --no-eff-email -d app.peymanhr.com"
+
+networks:
+
+  nginx:
+    driver: bridge
+    external: true
