@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.template.loader import get_template
+from django.contrib.auth.decorators import login_required, permission_required
+
 from random import randint
+
 
 def helloworld(request):
     template = get_template('one.html')
@@ -15,6 +18,8 @@ def home(request):
     return render(request, 'home.html', {})
 
 
+@login_required
+@permission_required('is_superuser')
 def alireza(request):
     products = [
         "Foo", "Bar", "Goo", "Apple", 
