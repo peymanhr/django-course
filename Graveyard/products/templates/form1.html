@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Form #1</h2>
+
+{% if errno == 2 %}
+<div class="error">Wrong username or password.</div>
+{% endif %}
+
+<form method="post" action="{% url 'form1' %}">
+  {% csrf_token %}
+  <div>Username: <input type="text" name="username" value="peyman"></div>
+  <div>Password: <input type="password" name="password"></div>
+  <div><input type="submit" value="Login"></div>
+
+</form>
+
+{% endblock %}

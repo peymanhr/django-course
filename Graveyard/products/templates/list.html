@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Products</h2>
+
+<table border="2">
+    {% for product in products %}
+    <tr>
+        <td>{{ product.id }}</td>
+        <td><a href="{% url 'detail' product.id %}">{{ product.name }}</a></td>
+        <td><a href="{% url 'delete' product.id %}">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
