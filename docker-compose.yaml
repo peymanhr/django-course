@@ -68,6 +68,25 @@ services:
         networks:
           - app
 
+    redis:
+        container_name: redis
+        image: redis:7.4.2-alpine3.21
+        restart: always
+        networks:
+          - app
+
+    celery:
+        container_name: celery
+        build:
+            context: ./celery
+        volumes:
+          - ./celery/app:/app
+        restart: always
+        networks:
+          - app
+        depends_on:
+          - redis
+
 networks:
   app:
     name: app
