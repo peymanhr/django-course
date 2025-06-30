@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.template.loader import get_template
 from django.contrib.auth.decorators import login_required, permission_required
+from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializers import ProductSerializer
 
 from random import randint
 
@@ -60,4 +64,10 @@ def delete(request, product_id):
     return redirect('list')
 
     
-    
+@api_view(["GET"])
+def testdrf(request):    
+    products = Product.objects.all()
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
+
+

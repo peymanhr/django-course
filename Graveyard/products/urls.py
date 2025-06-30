@@ -11,5 +11,6 @@ urlpatterns = [
     path('form1/<int:errno>', views.form1, name="form1"),
     path('detail/<int:product_id>', views.detail, name="detail"),
     path('delete/<int:product_id>', views.delete, name="delete"),
+    path('api/list', views.testdrf, name="apilist"),
 ]
  
