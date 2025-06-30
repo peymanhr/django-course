@@ -15,6 +15,7 @@ services:
           - ./nginx/etc/nginx/keys:/etc/nginx/keys
           - ./certbot/conf:/etc/letsencrypt
           - ./certbot/www:/var/www/certbot
+          - ./Graveyard/static:/static:ro
         restart: always
         
     app:
